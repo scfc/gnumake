@@ -21,11 +21,11 @@ this program.  If not, see <http://www.gnu.org/licenses/>.  */
 /*
  * Component Name:
  *
- * $Date: 2010/07/13 01:20:43 $
+ * $Date: 2011/11/14 00:42:50 $
  *
  * $Source: /sources/make/make/w32/include/sub_proc.h,v $
  *
- * $Id: sub_proc.h,v 1.12 2010/07/13 01:20:43 psmith Exp $
+ * $Id: sub_proc.h,v 1.13 2011/11/14 00:42:50 psmith Exp $
  */
 
 #define EXTERN_DECL(entry, args) extern entry args
@@ -40,7 +40,7 @@ EXTERN_DECL(long process_pipe_io, (HANDLE proc, char *stdin_data,
 	int stdin_data_len));
 EXTERN_DECL(long process_file_io, (HANDLE proc));
 EXTERN_DECL(void process_cleanup, (HANDLE proc));
-EXTERN_DECL(HANDLE process_wait_for_any, (VOID_DECL));
+EXTERN_DECL(HANDLE process_wait_for_any, (int block, DWORD* pdwWaitStatus));
 EXTERN_DECL(void process_register, (HANDLE proc));
 EXTERN_DECL(HANDLE process_easy, (char** argv, char** env));
 EXTERN_DECL(BOOL process_kill, (HANDLE proc, int signal));
@@ -56,5 +56,15 @@ EXTERN_DECL(char * process_errbuf, (HANDLE proc));
 EXTERN_DECL(int process_outcnt, (HANDLE proc));
 EXTERN_DECL(int process_errcnt, (HANDLE proc));
 EXTERN_DECL(void process_pipes, (HANDLE proc, int pipes[3]));
+
+/* jobserver routines */
+EXTERN_DECL(int open_jobserver_semaphore, (char* name));
+EXTERN_DECL(int create_jobserver_semaphore, (int tokens));
+EXTERN_DECL(void free_jobserver_semaphore, (VOID_DECL));
+EXTERN_DECL(int acquire_jobserver_semaphore, (VOID_DECL));
+EXTERN_DECL(int release_jobserver_semaphore, (VOID_DECL));
+EXTERN_DECL(int has_jobserver_semaphore, (VOID_DECL));
+EXTERN_DECL(char* get_jobserver_semaphore_name, (VOID_DECL));
+EXTERN_DECL(int wait_for_semaphore_or_child_process, (VOID_DECL));
 
 #endif
