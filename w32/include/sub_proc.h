@@ -21,11 +21,11 @@ this program.  If not, see <http://www.gnu.org/licenses/>.  */
 /*
  * Component Name:
  *
- * $Date: 2011/11/14 00:42:50 $
+ * $Date: 2011/11/15 21:12:54 $
  *
  * $Source: /sources/make/make/w32/include/sub_proc.h,v $
  *
- * $Id: sub_proc.h,v 1.13 2011/11/14 00:42:50 psmith Exp $
+ * $Id: sub_proc.h,v 1.14 2011/11/15 21:12:54 psmith Exp $
  */
 
 #define EXTERN_DECL(entry, args) extern entry args
@@ -58,7 +58,7 @@ EXTERN_DECL(int process_errcnt, (HANDLE proc));
 EXTERN_DECL(void process_pipes, (HANDLE proc, int pipes[3]));
 
 /* jobserver routines */
-EXTERN_DECL(int open_jobserver_semaphore, (char* name));
+EXTERN_DECL(int open_jobserver_semaphore, (const char* name));
 EXTERN_DECL(int create_jobserver_semaphore, (int tokens));
 EXTERN_DECL(void free_jobserver_semaphore, (VOID_DECL));
 EXTERN_DECL(int acquire_jobserver_semaphore, (VOID_DECL));
