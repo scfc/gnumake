@@ -30,7 +30,7 @@
 # this routine controls the whole mess; each test suite sets up a few
 # variables and then calls &toplevel, which does all the real work.
 
-# $Id: test_driver.pl,v 1.31 2012/01/16 02:29:25 psmith Exp $
+# $Id: test_driver.pl,v 1.32 2012/01/29 18:12:22 psmith Exp $
 
 
 # The number of test categories we've run
@@ -89,6 +89,7 @@ sub toplevel
 
   foreach (# UNIX-specific things
            'TZ', 'TMPDIR', 'HOME', 'USER', 'LOGNAME', 'PATH',
+           'LD_LIBRARY_PATH',
            # Purify things
            'PURIFYOPTIONS',
            # Windows NT-specific stuff
