@@ -461,7 +461,8 @@ AS_IF([test "x$make_cv_job_server" = xno && test "x$user_job_server" = xyes],
 
 # Specify what files are to be created.
 AC_CONFIG_FILES([Makefile glob/Makefile po/Makefile.in config/Makefile \
-                 doc/Makefile w32/Makefile])
+                 doc/Makefile tests/atlocal tests/Makefile w32/Makefile])
+AC_CONFIG_TESTDIR([tests])
 
 # OK, do it!
 

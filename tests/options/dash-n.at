@@ -1,0 +1,62 @@
+# Try various uses of -n and ensure they all give the correct results.
+
+AT_SETUP([[Test the -n option.]])
+
+AT_DATA([[Makefile]], [[
+final: intermediate ; echo >> $@
+intermediate: orig ; echo >> $@
+
+]])
+
+AT_TOUCH([[orig]])
+
+# Test 0.
+
+AT_TEST_MAKE([[Makefile]], [[]], [[echo >> intermediate
+echo >> final
+]])
+
+# Test 1.
+
+AT_TEST_MAKE([[Makefile]], [[-Worig -n]], [[echo >> intermediate
+echo >> final
+]])
+AT_CHECK([[rm -f orig intermediate final]])
+
+# We consider the actual updated timestamp of targets with all
+# recursive commands, even with -n.
+
+AT_DATA([[Makefile2]], [[.SUFFIXES:
+BAR =     # nothing
+FOO = +$(BAR)
+a: b; echo > $@
+b: c; $(FOO)
+]])
+AT_UTOUCH([[-20]], [[b]])
+AT_UTOUCH([[-10]], [[a]])
+AT_TOUCH([[c]])
+
+# Test 2.
+
+AT_TEST_MAKE([[Makefile2]], [[]], [[make: `a' is up to date.
+]])
+
+# Test 3.
+
+AT_TEST_MAKE([[Makefile2]], [[-n]], [[make: `a' is up to date.
+]])
+
+# Test 4.
+
+AT_CHECK([[rm -f a b]])
+
+AT_TEST_MAKE([[Makefile2]], [[-t -n]], [[touch b
+touch a
+]])
+
+AT_CHECK([test ! -e a])
+AT_CHECK([test ! -e b])
+
+# Cleanup.
+
+AT_CLEANUP

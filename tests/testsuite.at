@@ -1,0 +1,3 @@
+AT_INIT
+
+m4_include([options/dash-n.at])

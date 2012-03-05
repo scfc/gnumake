@@ -1,0 +1,18 @@
+# AT_TEST_MAKE(MAKEFILE, OPTIONS, EXPOUT)
+# ---------------------------------------
+# Try MAKEFILE with OPTIONS and expect EXPOUT.
+m4_define([AT_TEST_MAKE],
+[AT_CHECK([MAKELEVEL= ../../../make --no-print-directory $2 -f $1], 0, [$3], [])])
+
+# AT_TOUCH(FILE)
+# --------------
+# Create/overwrite FILE with a newline.
+m4_define([AT_TOUCH],
+[AT_CHECK([echo > $1], 0, [], [])])
+
+# AT_UTOUCH(OFF, FILE)
+# --------------------
+# Create/overwrite FILE with a newline last modified OFF seconds ago.
+m4_define([AT_UTOUCH],
+[AT_CHECK([echo > $2], 0, [], [])
+AT_CHECK([touch -d 'm4_eval(-1 * $1) seconds ago' $2])])

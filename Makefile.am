@@ -29,7 +29,7 @@ if WINDOWSENV
   W32LIB =	-Lw32 -lw32
 endif
 
-SUBDIRS =	glob config po doc $(MAYBE_W32)
+SUBDIRS =	glob config po doc tests $(MAYBE_W32)
 
 bin_PROGRAMS =	make
 
