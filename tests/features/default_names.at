@@ -1,0 +1,46 @@
+# This test makes sure that make looks for default makefiles in the
+# correct order (GNUmakefile, makefile, Makefile).
+
+AT_SETUP([Test default Makefile.])
+
+AT_DATA([Makefile], [THIRD: ; @echo It chose Makefile
+])
+
+AT_TEST_MAKE([], [], [It chose Makefile
+])
+
+AT_CLEANUP
+
+AT_SETUP([Test precedence of GNUmakefile over makefile and Makefile.])
+
+# DOS/WIN32 platforms preserve case, but Makefile is the same file as
+# makefile.  In this case, Makefile and makefile will be the same, but
+# we are only interested in the precedence of GNUmakefile here.
+
+AT_DATA([GNUmakefile], [FIRST: ; @echo It chose GNUmakefile
+])
+AT_DATA([makefile], [SECOND: ; @echo It chose makefile
+])
+AT_DATA([Makefile], [THIRD: ; @echo It chose Makefile
+])
+
+AT_TEST_MAKE([], [], [It chose GNUmakefile
+])
+
+AT_CLEANUP
+
+AT_SETUP([Test precedence of makefile over Makefile.])
+
+# DOS/WIN32 platforms preserve case, but Makefile is the same file as
+# makefile.  In this case, we skip the test.
+
+AT_DATA([makefile], [SECOND: ; @echo It chose makefile
+])
+AT_SKIP_IF([test -e Makefile])
+AT_DATA([Makefile], [THIRD: ; @echo It chose Makefile
+])
+
+AT_TEST_MAKE([], [], [It chose makefile
+])
+
+AT_CLEANUP

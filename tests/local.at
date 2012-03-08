@@ -2,7 +2,7 @@
 # ---------------------------------------
 # Try MAKEFILE with OPTIONS and expect EXPOUT.
 m4_define([AT_TEST_MAKE],
-[AT_CHECK([MAKELEVEL= ../../../make --no-print-directory $2 -f $1], 0, [$3], [])])
+[AT_CHECK([MAKELEVEL= ../../../make --no-print-directory $2]m4_if([$1], [], [], [ -f $1]), 0, [$3], [])])
 
 # AT_TOUCH(FILE)
 # --------------
